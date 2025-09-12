@@ -5,15 +5,15 @@ if not has_fzf_lua then
 	return
 end
 
-local has_project = pcall(require, "project_nvim")
+local has_project = pcall(require, "project")
 if not has_project then
-	error("project_nvim is a dependency of project-fzf")
+	error("project.nvim is a dependency of project-fzf")
 	return
 end
 
-local history = require("project_nvim.utils.history")
-local project = require("project_nvim.project")
-local config = require("project_nvim.config")
+local history = require("project.utils.history")
+local project = require("project.api")
+local config = require("project.config")
 
 local M = {}
 
@@ -48,15 +48,15 @@ local function change_working_directory_by_selection(projects_data, selection)
 end
 
 function M.projects()
-	local recent_projects = history.get_recent_projects()
-	for i = 1, math.floor(#recent_projects / 2) do
-		recent_projects[i], recent_projects[#recent_projects - i + 1] =
-			recent_projects[#recent_projects - i + 1], recent_projects[i]
+	local recent = history.get_recent_projects()
+	local recent_len = #recent
+	for i = 1, math.floor(recent_len / 2) do
+		recent[i], recent[recent_len - i + 1] = recent[recent_len - i + 1], recent[i]
 	end
 
 	local projects_display = {}
 	local projects_data = {}
-	for _, project_path in ipairs(recent_projects) do
+	for _, project_path in ipairs(recent) do
 		local name, display = format_for_display(project_path)
 		table.insert(projects_display, display)
 		projects_data[display] = {
@@ -69,7 +69,7 @@ function M.projects()
 		prompt = "Projects > ",
 		actions = {
 			default = function(selection)
-				local cd_successful, _ = change_working_directory_by_selection(projects_data, selection)
+				local cd_successful = change_working_directory_by_selection(projects_data, selection)
 				local opts = {
 					hidden = config.options.show_hidden,
 				}
@@ -79,7 +79,7 @@ function M.projects()
 				end
 			end,
 			["ctrl-s"] = function(selection)
-				local cd_successful, _ = change_working_directory_by_selection(projects_data, selection)
+				local cd_successful = change_working_directory_by_selection(projects_data, selection)
 				local opts = {
 					hidden = config.options.show_hidden,
 				}
@@ -118,7 +118,7 @@ function M.projects()
 				end
 			end,
 			["ctrl-w"] = function(selection)
-				local _, _ = change_working_directory_by_selection(projects_data, selection)
+				change_working_directory_by_selection(projects_data, selection)
 			end,
 		},
 	})
