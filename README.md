@@ -2,7 +2,7 @@
 
 A Neovim plugin that provides FZF-based project selection for project.nvim.
 
-This plugin replicates the Telescope integration from project.nvim but uses fzf-lua instead. It combines the power of [project.nvim](https://github.com/ahmedkhalf/project.nvim) with [fzf-lua](https://github.com/ibhagwan/fzf-lua) to create a smoother project navigation experience.
+This plugin replicates the Telescope integration from project.nvim but uses fzf-lua instead. It combines the power of [project.nvim](https://github.com/DrKJeff16/project.nvim) with [fzf-lua](https://github.com/ibhagwan/fzf-lua) to create a smoother project navigation experience.
 
 <div align="center">
   <img src="assets/screenshot.jpg" width="80%" alt="project-fzf.nvim in action">
@@ -19,7 +19,7 @@ This plugin was developed live on the [MrJakob YouTube channel](https://www.yout
 
 ## 📋 Requirements
 
-- [project.nvim](https://github.com/ahmedkhalf/project.nvim) (must be configured separately before using this plugin)
+- [project.nvim](https://github.com/DrKJeff16/project.nvim) (must be configured separately before using this plugin)
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua)
 
 ## 📥 Installation
@@ -30,7 +30,7 @@ This plugin was developed live on the [MrJakob YouTube channel](https://www.yout
 {
   'jakobwesthoff/project-fzf.nvim',
   dependencies = {
-    'ahmedkhalf/project.nvim', -- Must be configured separately
+    'DrKJeff16/project.nvim', -- Must be configured separately
     'ibhagwan/fzf-lua',
   },
   opts = {},  -- Will call require('project-fzf').setup(opts)
@@ -43,7 +43,7 @@ This plugin was developed live on the [MrJakob YouTube channel](https://www.yout
 use {
   'jakobwesthoff/project-fzf.nvim',
   requires = {
-    'ahmedkhalf/project.nvim', -- Must be configured separately
+    'DrKJeff16/project.nvim', -- Must be configured separately
     'ibhagwan/fzf-lua',
   },
   config = function()
@@ -56,7 +56,7 @@ use {
 ### Using [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
-Plug 'ahmedkhalf/project.nvim'  " Must be configured separately
+Plug 'DrKJeff16/project.nvim'  " Must be configured separately
 Plug 'ibhagwan/fzf-lua'
 Plug 'jakobwesthoff/project-fzf.nvim'
 
@@ -106,4 +106,4 @@ vim.keymap.set('n', '<leader>fp', ':ProjectFzf<CR>', { noremap = true, silent = 
 
 ## 👏 Credits
 
-Inspired by the project management functionality in [project.nvim](https://github.com/ahmedkhalf/project.nvim).
+Inspired by the project management functionality in the original [project.nvim](https://github.com/ahmedkhalf/project.nvim).
