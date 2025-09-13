@@ -12,11 +12,13 @@ if not has_project then
 end
 
 local history = require("project.utils.history")
-local project = require("project.api")
+local api = require("project.api")
 local config = require("project.config")
 
 local M = {}
 
+---@return string
+---@return string
 local function format_for_display(project_path)
 	local name = project_path:match("/([^/]+)$")
 	return name, string.format("%-30s %s", name, project_path)
@@ -43,8 +45,7 @@ local function change_working_directory_by_selection(projects_data, selection)
 	if data == nil then
 		return false, {}
 	end
-	local cd_successful = project.set_pwd(data.path, "fzf-lua")
-	return cd_successful, data
+	return api.set_pwd(data.path, "fzf-lua"), data
 end
 
 function M.projects()
@@ -55,6 +56,8 @@ function M.projects()
 	end
 
 	local projects_display = {}
+
+	---@type table<string, { name: string, path: string }>
 	local projects_data = {}
 	for _, project_path in ipairs(recent) do
 		local name, display = format_for_display(project_path)
